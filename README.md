@@ -24,15 +24,15 @@ Displays title, guest/bed/bathroom counts.
 
 Sections:
 
-About this property – description.
+**About this property – description.**
 
-Amenities – shown in bordered chips (Internet, Kitchen, Smoke Detector, etc).
+**Amenities – shown in bordered chips (Internet, Kitchen, Smoke Detector, etc).**
 
-Stay Policies – check-in/out, house rules, cancellation policies.
+**Stay Policies – check-in/out, house rules, cancellation policies.**
 
-Book Your Stay card – select dates, number of guests, inquiry/availability check.
+**Book Your Stay card – select dates, number of guests, inquiry/availability check.**
 
-Reviews Section:
+**Reviews Section:**
 
 Rendered at the bottom of the page.
 
@@ -41,6 +41,13 @@ Uses wider width, spanning the same space as About + Inquiry combined.
 Only approved reviews appear for the current property.
 
 Includes category scores, filters, histograms, highlights, and keyword chips (when reviews come up with all these categories marked, these will automatically light up).
+
+**Location & Map (Not Implemented)**  
+- The original Flex Living website includes a **Google Maps embed**.  
+- Implementing this requires the **Google Maps JavaScript API** or **Places API**, which needs billing and a valid Google API key.  
+- Since this project is designed for mock data only, the **map section was not implemented**.  
+- 👉 Instead, the **Reviews Section** was placed at the same position.  
+- In a real production build, the **Location (map)** would appear first, followed by the **Reviews Section**.  
 
 ## Manager Dashboard (src/app/reviews/page.tsx)
 
@@ -138,10 +145,26 @@ In-memory store tracks approval state.
 ## Deployment
 
 Deployed via Vercel.
+Live production link:  https://the-flex-3ipm.vercel.app
+API endpoint: https://the-flex-3ipm.vercel.app/api/reviews/hostaway
 
 Built with npm run build.
 
 Works in production with live API routes.
+
+---
+
+## Google Reviews (Exploration)
+Google Reviews integration was explored through the **Google Places API** (Places Details endpoint). It is feasible to fetch reviews for a property by its Place ID and normalize them into the same format as Hostaway reviews (`id`, `propertyId`, `propertyName`, `rating`, `submittedAt`, `text`, `guestName`).  
+
+However, this requires an active Google Cloud project, billing enabled, and a valid API key. Since the assessment scope provided only mocked Hostaway data and no Google API credentials, full integration was not implemented.  
+
+If expanded in production, the approach would be:  
+1. Use Google Places API → `place/details` endpoint.  
+2. Extract `reviews[]`.  
+3. Normalize reviews to internal `Review` type.  
+4. Merge with Hostaway reviews for manager analysis.  
+
 
 ## AI Usage
 
@@ -149,31 +172,35 @@ Used ChatGPT for:
 
 Debugging TypeScript errors (dynamic imports, props).
 
-Final implementation tested & adjusted manually.
+Final implementation was tested & adjusted manually.
 
 ## Task Sheet Mapping (Checklist)
 
- Property details (images, amenities, policies)
+ Property details (images, amenities, policies)✅
 
- Parse & normalize reviews
+ Parse & normalize reviews✅
 
- Manager dashboard + approve/unapprove
+ Manager dashboard + approve/unapprove✅
 
- Per-property insights (avg, count, low-star %)
+ Per-property insights (avg, count, low-star %)✅
 
- Trending properties (≥2 reviews, avg ≥2.5)
+ Trending properties (≥2 reviews, avg ≥2.5)✅
 
- Recurring issues detection + property name
+ Recurring issues detection + property name✅
 
- Toggle “approved only”
+ Toggle “approved only”✅
 
- Styling (green approve, red unapprove, card design)
+ Styling (green approve, red unapprove, card design)✅
 
- Deployed to Vercel
+ Deployed to Vercel✅
 
- Documentation + AI usage
+ Google Reviews Exploration✅
+
+ Documentation + AI usage✅
 
 ## Conclusion
 
 This project demonstrates a full stack of UI + review analytics for property management.
 It integrates property pages, a functional manager dashboard, analytics (trending & recurring issues), and responsive design — all aligned with the original task sheet requirements.
+
+
